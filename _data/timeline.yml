@@ -1,27 +1,21 @@
-- title: AMAZING STUFF
-  from: 2019
+- title: Packaging Intern, Atomic Semi, CA
+  from: 2026
   to: present
-  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-               reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  description: TBD!
 
-- title: Student, Harvard CS
-  from: 2013
-  to: 2018
-  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-               reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-- title: Software Engineer, Google, UK
-  from: 2018
+- title: Graduate Research Assistant, UIUC, Ph.D ECE, IL
+  from: 2025
   to: present
-  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-               reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  description: Worked under [Dr. Yurii Vlasov](https://www.integratedneurotech.com/) on [Picoliter Droplet Printing for Matrix-Assisted Laser Desorption/Ionization Mass Spectrometry (MALDI-MS)](https://1drv.ms/p/c/16dcbd06afd00e90/IQAKQ2CruZzpSoNpoiymW9DKAR7jY6Xm7n86eAxXMUlzB3o?e=DkeWBR).
+
+- title: Undergraduate Research Assistant, UT Austin, B.S. MechEng, TX
+  from: 2021
+  to: 2025
+  description: Worked under [Dr. Emma Fan](https://sites.utexas.edu/dfan/) on [Techniques for Precision Large-Scale Electrokinetic-trapping of Nanoparticles](https://drive.google.com/file/d/1fKn8YZDRnD462G4dHZ3KyiP86wGVc6UH/view?usp=sharing). 
+               Additionally, assisted (now) Dr. Hyungmok Joh with [Optically-Induced Electrical Nano-Patterning](https://doi.org/10.21203/rs.3.rs-8767694/v1).
+
+- title: Intern, Intel, OR
+  from: 2024, May
+  to: 2024, Aug
+  description: Worked with Dr. Hayden Winter and Dr. Wilhem Melitz on Intel's Atomic Layer Deposition (ALD) toolset as part of the maintenance and optimization team.
 

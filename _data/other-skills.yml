@@ -1,9 +1,19 @@
-- name: Adobe Photoshop
-  percentage: 95
+- name: SolidWorks
+  percentage: 100
   level: Expert
   color: info
 
-- name: Adobe Illustrator
+- name: AutoCad
+  percentage: 60
+  level: Proficient
+  color: success
+
+- name: 3D Printing
   percentage: 90
   level: Expert
-  color: success
+  color: secondary
+
+- name: Computer Vision
+  percentage: 75
+  level: Skilled
+  color: secondary
