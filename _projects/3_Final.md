@@ -1,0 +1,83 @@
+---
+name: Final Part 3
+tools: [Python, HTML, vega-lite]
+image: assets/pngs/visualization.png
+description: GitHub page for HW 5.1
+custom_js:
+  - vega.min
+  - vega-lite.min
+  - vega-embed.min
+  - justcharts
+---
+
+
+# First Plot
+
+<div class="chart-breakout">
+    <div class="chart-inner">
+        <vegachart 
+            schema-url="{{ site.baseurl }}/assets/json/visualization1.json" 
+            style="width: 100%;">
+        </vegachart>
+    </div>
+</div>
+
+<style>
+.chart-breakout {
+    position: relative;
+    /* This escapes the text container */
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    
+    /* This centers the content inside the new full-width area */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-inner {
+    width: 100%;
+    /* Limits the map size so it's not literally touching the screen edges */
+    max-width: 1200px; 
+    padding: 0 20px;
+}
+</style>
+
+### Description:
+This plot shows the distribution of various professional licenses (Dental, Cosmotology, etc.) across the U.S., with a focus on Illinois and its bordering states, Georgia, and Texas. The plot shows the `AlbersUSA` projection of the U.S., with the highlighted states where the licenses were issued in green, and a distinct color for each license type. The view supports both granular geographic distributions via zip codes and high-level summaries via coalesced state-level data.
+
+### Design Choices:
+The size of the dot is proportional to the number of licensees in each zipcode/state. [Cologorical](http://vrl.cs.brown.edu/color) is a free tool for generating color palettes with specific distributions. For this plot, I maximized perceptual distance, or colors that are more easily discriminable to the human eye, as there were 14 categories, using Colorgorical. Additionally, the dot opacity is set to 0.8 to ensure overlapping data points remain visible, and state-level dots are locked to the true geographic center of each state's boundaries to prevent visual drift toward population hubs.
+
+### Data Transformations:
+Zipcodes were mapped to integers and the data was cleaned of NaNs. Specifically, missing values were forcefully converted to `None` (`null` in JSON) to guarantee browser compatibility and prevent JavaScript parsing crashes. A hardcoded dictionary of geographic state centroids was merged into the dataset, and Altair's `transform_aggregate` was utilized to dynamically group and count the data by location and license type directly within the Vega-Lite specification.
+
+### Interactivity:
+The drop down menus allow for filtering between each license, changing between zipcode-wise and state-wise plotting, and whether a licensee has been disciplined before or not. The scale bar allows the user to dynamically increase or decrease the size of the dots based on a mathematical multiplier. This is combined with a `clamp` function to enforce strict minimum and maximum pixel boundaries so the circles don't vanish or overwhelm the map. Finally, the entire map supports interactive zooming (via scroll) and panning (via click-and-drag) to inspect localized regions more closely.
+
+# Second Plot
+
+<vegachart schema-url="{{ site.baseurl }}/assets/json/visualization2.json" style="width: 100%"></vegachart>
+
+### Description:
+This chart explores the duration of disciplinary actions across different categories of offenses. It provides a comparative view of how long licenses are suspended or penalized based on the specific reason for discipline.
+
+### Design Choices:
+The x-axis represents the categorical offense types, while the y-axis represents the quantitative discipline length in days. The chart allows users to dynamically swap the visualization mark between a scatter plot (useful for seeing individual outliers, density, and specific business details) and a boxplot (useful for quickly comparing statistical spreads like the median, min, and max). Distinct colors are applied to each category to visually separate the columns, and the category legend was removed to reduce clutter since the x-axis already labels them clearly. 
+
+### Data Transformations:
+Discipline lengths were mathematically derived by calculating the number of days between the discipline start and end dates. The raw, unstructured discipline reasons were mapped into unified thematic categories using keyword string matching. To prevent rendering errors, the dataset was strictly filtered to exclude anomalous negative durations (`Discipline Length >= 0`), drop missing length values, and explicitly convert any remaining Python `NaN` values into JavaScript-safe `null` values.
+
+### Interactivity:
+A dropdown menu allows users to filter the entire chart by "License Status." A second dropdown acts as a chart-type toggle, switching the underlying Vega-Lite mark between "Scatter" and "Boxplot" on the fly. When in scatter plot mode, hovering over individual data points reveals rich tooltips containing the business name, exact license type, specific discipline reason, and penalty duration. The chart also natively supports panning and zooming to inspect clustered data points more closely.
+
+<h2 style="text-align: center;">Data & Notebook</h2>
+
+<div class="left">
+{% include elements/button.html link="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/assets/data/licenses_fall2022.csv" text="The Data" %}
+</div>
+
+<div class="right">
+{% include elements/button.html link="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/hw5.ipynb" text="The Analysis" %}
+</div>
+
