@@ -12,6 +12,7 @@ custom_js:
 
 
 <h1 style="text-align: center;">Inflation-Adjusted Commodities with Ruling-Party Statistics (Republican vs. Democrat)</h1>
+
 <div class="chart-breakout">
     <div class="chart-inner">
         <vegachart 
