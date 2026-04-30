@@ -11,7 +11,7 @@ custom_js:
 ---
 
 
-# First Plot
+<h1 style="text-align: center;">Inflation-Adjusted Commodities with Ruling-Party Statistics (Republican vs. Democrat)</h1>
 
 <div class="chart-breakout">
     <div class="chart-inner">
@@ -44,40 +44,29 @@ custom_js:
 </style>
 
 ### Description:
-This plot shows the distribution of various professional licenses (Dental, Cosmotology, etc.) across the U.S., with a focus on Illinois and its bordering states, Georgia, and Texas. The plot shows the `AlbersUSA` projection of the U.S., with the highlighted states where the licenses were issued in green, and a distinct color for each license type. The view supports both granular geographic distributions via zip codes and high-level summaries via coalesced state-level data.
+This plot shows the relationship between various extremely necessary commodities (Gas, Spaghetti, Ice Cream, Bacon, etc.) and the ruling party. Inflation year-over-year is measured by calculating the price increase in a "basket" of goods representative of what American's consider neccessary. Here, we show what each commodity would have cost in 2026 dollars from 1976 onwards. Sadly, there is very little data on spaghetti. 
 
-### Design Choices:
-The size of the dot is proportional to the number of licensees in each zipcode/state. [Cologorical](http://vrl.cs.brown.edu/color) is a free tool for generating color palettes with specific distributions. For this plot, I maximized perceptual distance, or colors that are more easily discriminable to the human eye, as there were 14 categories, using Colorgorical. Additionally, the dot opacity is set to 0.8 to ensure overlapping data points remain visible, and state-level dots are locked to the true geographic center of each state's boundaries to prevent visual drift toward population hubs.
+We are primarily interested in whether the ruling party (Democrat/Republican) is potentially responsible for price increases, such as the recent war in Iran having significant impacts of the price of Gasoline. The background is highlighted in red/blue, indicating which political party holds most of the 3 branches of government. On the right, we see the specific makeup of the government for a selected range of years (averaged). This is useful for telling us whether there is a lame-duck president, wherein the legislative branch is split and little can be done, or there is a strong hold on power, such as in our current administration.
 
-### Data Transformations:
-Zipcodes were mapped to integers and the data was cleaned of NaNs. Specifically, missing values were forcefully converted to `None` (`null` in JSON) to guarantee browser compatibility and prevent JavaScript parsing crashes. A hardcoded dictionary of geographic state centroids was merged into the dataset, and Altair's `transform_aggregate` was utilized to dynamically group and count the data by location and license type directly within the Vega-Lite specification.
+## Colormap:
+I chose the ``dark2`` colormap because it's a bit more high-contrast than ``tableau10``, but I also added a drop-shadow to help it stand out against the red/blue shading. Obviously, the red/blue is indicative of Republican and Democrat, so there wasn't much flexibility there.
 
-### Interactivity:
-The drop down menus allow for filtering between each license, changing between zipcode-wise and state-wise plotting, and whether a licensee has been disciplined before or not. The scale bar allows the user to dynamically increase or decrease the size of the dots based on a mathematical multiplier. This is combined with a `clamp` function to enforce strict minimum and maximum pixel boundaries so the circles don't vanish or overwhelm the map. Finally, the entire map supports interactive zooming (via scroll) and panning (via click-and-drag) to inspect localized regions more closely.
-
-# Second Plot
+# Contextual Visualizations
 
 <vegachart schema-url="{{ site.baseurl }}/assets/json/visualization2.json" style="width: 100%"></vegachart>
 
 ### Description:
-This chart explores the duration of disciplinary actions across different categories of offenses. It provides a comparative view of how long licenses are suspended or penalized based on the specific reason for discipline.
+This plot shows a map of the United States wherein each state is shaded according to the political affiliation of the sitting judges during a given selected year. On the right, we see the average of the basket of commodities for that selected year as well. This is an important contextual visualization, as it shows us something more long-term than representatives. Judges are often life-long appointments, or at the very least, served for many decades. A large shift in the political leaning of the overall Justice system can tell us a bit more about how laws are interpreted. In particular, these are Federally appointed judges, so cases tend to be significant in matter, rather than simple civil suits.
 
-### Design Choices:
-The x-axis represents the categorical offense types, while the y-axis represents the quantitative discipline length in days. The chart allows users to dynamically swap the visualization mark between a scatter plot (useful for seeing individual outliers, density, and specific business details) and a boxplot (useful for quickly comparing statistical spreads like the median, min, and max). Distinct colors are applied to each category to visually separate the columns, and the category legend was removed to reduce clutter since the x-axis already labels them clearly. 
-
-### Data Transformations:
-Discipline lengths were mathematically derived by calculating the number of days between the discipline start and end dates. The raw, unstructured discipline reasons were mapped into unified thematic categories using keyword string matching. To prevent rendering errors, the dataset was strictly filtered to exclude anomalous negative durations (`Discipline Length >= 0`), drop missing length values, and explicitly convert any remaining Python `NaN` values into JavaScript-safe `null` values.
-
-### Interactivity:
-A dropdown menu allows users to filter the entire chart by "License Status." A second dropdown acts as a chart-type toggle, switching the underlying Vega-Lite mark between "Scatter" and "Boxplot" on the fly. When in scatter plot mode, hovering over individual data points reveals rich tooltips containing the business name, exact license type, specific discipline reason, and penalty duration. The chart also natively supports panning and zooming to inspect clustered data points more closely.
+## Colormap:
+The colormap is diverging between red and blue to best show the political lean, this is a common choice for politcal maps of the USA.
 
 <h2 style="text-align: center;">Data & Notebook</h2>
 
 <div class="left">
-{% include elements/button.html link="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/assets/data/licenses_fall2022.csv" text="The Data" %}
+{% include elements/button.html link="https://github.com/nolan-cummins/nolan-cummins.github.io/tree/main/python_notebooks/data" text="The Data" %}
 </div>
 
 <div class="right">
-{% include elements/button.html link="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/hw5.ipynb" text="The Analysis" %}
+{% include elements/button.html link="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/final_3.1.ipynb" text="The Analysis" %}
 </div>
-
