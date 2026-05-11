@@ -73,65 +73,206 @@
 
 </nav>
     <div class="col-lg-10 mx-auto mt-5 markdown-body">
-  <h1 style="text-align: center;">Inflation-Adjusted Commodities with Ruling-Party Statistics (Republican vs. Democrat)</h1>
+  <style>
+/* Global text formatting */
+p {
+    text-align: justify;
+    line-height: 1.6;
+}
 
-<div class="chart-breakout">
-    <div class="chart-inner">
-        <vegachart schema-url="/assets/json/visualization1.json" style="width: 100%;">
-        </vegachart>
-    </div>
-</div>
+/* Button container alignment */
+.button-container {
+    display: flex; 
+    justify-content: center; 
+    gap: 1rem; 
+    flex-wrap: wrap; 
+    margin: 1.5rem 0 2.5rem 0;
+}
 
-<style>
+/* Full-width Vega chart formatting */
 .chart-breakout {
     position: relative;
-    /* This escapes the text container */
     width: 100vw;
     margin-left: calc(-50vw + 50%);
-    
-    /* This centers the content inside the new full-width area */
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 .chart-inner {
     width: 100%;
-    /* Limits the map size so it's not literally touching the screen edges */
     max-width: 1200px; 
     padding: 0 20px;
 }
+
+/* Image hover effect for contextual plots */
+.contextual-plot {
+    display: block;
+    border-bottom: 4px solid transparent;
+    transition: border-color 0.3s ease-in-out;
+    padding-bottom: 4px;
+    text-decoration: none;
+}
+.contextual-plot:hover {
+    border-bottom: 4px solid #007bff;
+}
+
+/* Caption formatting */
+.image-caption {
+    text-align: center; 
+    font-size: 0.9em; 
+    color: #666;
+    margin-top: 0.5rem;
+}
 </style>
 
-<h3 id="description">Description:</h3>
-<p>This plot shows the relationship between various extremely necessary commodities (Gas, Spaghetti, Ice Cream, Bacon, etc.) and the ruling party. Inflation year-over-year is measured by calculating the price increase in a “basket” of goods representative of what American’s consider neccessary. Here, we show what each commodity would have cost in 2026 dollars from 1976 onwards. Sadly, there is very little data on spaghetti.</p>
+<h1 style="text-align: center;">Are Republicans or Democrats Making Everything Expensive?</h1>
 
-<p>We are primarily interested in whether the ruling party (Democrat/Republican) is potentially responsible for price increases, such as the recent war in Iran having significant impacts of the price of Gasoline. The background is highlighted in red/blue, indicating which political party holds most of the 3 branches of government. On the right, we see the specific makeup of the government for a selected range of years (averaged). This is useful for telling us whether there is a lame-duck president, wherein the legislative branch is split and little can be done, or there is a strong hold on power, such as in our current administration.</p>
+<h2 style="text-align: center;">By: Nolan Cummins</h2>
 
-<h2 id="colormap">Colormap:</h2>
-<p>I chose the <code class="language-plaintext highlighter-rouge">dark2</code> colormap because it’s a bit more high-contrast than <code class="language-plaintext highlighter-rouge">tableau10</code>, but I also added a drop-shadow to help it stand out against the red/blue shading. Obviously, the red/blue is indicative of Republican and Democrat, so there wasn’t much flexibility there.</p>
+<p><br /></p>
 
-<h1 id="contextual-visualizations">Contextual Visualizations</h1>
+<h1 id="introduction">Introduction</h1>
 
-<vegachart schema-url="/assets/json/visualization2.json" style="width: 100%"></vegachart>
+<p>For my final project, I decided to look at the relationship between the ruling party at any given time and the cost of highly valuable goods, like spaghetti. My initial assumption was that Republicans would obviously run the economy into the ground, and although that may appear true when watching the stock market, the actual price of goods tends to be volatile for a year or two before stabilizing after adjusting for inflation. Since large economic decisions typically take time to propagate into significant impacts on commodity pricing, switching from one administration to another makes it difficult to determine if the actions of one truly made everything more expensive. To investigate this, I made two visualizations: a line chart and a geomap.</p>
 
-<h3 id="description-1">Description:</h3>
-<p>This plot shows a map of the United States wherein each state is shaded according to the political affiliation of the sitting judges during a given selected year. On the right, we see the average of the basket of commodities for that selected year as well. This is an important contextual visualization, as it shows us something more long-term than representatives. Judges are often life-long appointments, or at the very least, served for many decades. A large shift in the political leaning of the overall Justice system can tell us a bit more about how laws are interpreted. In particular, these are Federally appointed judges, so cases tend to be significant in matter, rather than simple civil suits.</p>
+<hr />
 
-<h2 id="colormap-1">Colormap:</h2>
-<p>The colormap is diverging between red and blue to best show the political lean, this is a common choice for politcal maps of the USA.</p>
+<div class="chart-breakout">
+    <div class="chart-inner">
+        <vegachart schema-url="../assets/json/visualization1.json?v=1778534131" style="width: 100%;">
+        </vegachart>
+    </div>
+</div>
 
-<h2 style="text-align: center;">Data &amp; Notebook</h2>
+<div class="button-container">
+    <div>
+        <a class="m-1 btn btn-outline-primary btn-2 " href="https://www.bls.gov/data/">
+  Commodity Data (U.S. Bureau of Labor Statistics)
+</a>
+    </div>
+    <div>
+        <a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/unitedstates/congress-legislators">
+  Political Data (United States Project)
+</a>
+    </div>
+</div>
 
-<div class="left">
-<a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/tree/main/python_notebooks/data">
-  The Data
+<h1 id="whos-in-charge">Who’s in charge?</h1>
+<p>Fundamentally, the government consists of three branches: executive, judicial, and legislative. To determine an objective “ruling party,” I took the weighted sum for each branch (including the House and Senate) [3]; whichever holds &gt;51% is considered “in charge.” This is shown as the shaded background (red/blue) in the first visualization. After extensive <code class="language-plaintext highlighter-rouge">Pandas</code> data cleaning, I plotted the inflation-adjusted prices of various commodities as a line chart. The bar chart on the right shows the average distribution of the government by party for each branch during the selected years. This provides a clear look at the continuous changes in prices over time alongside political shifts.</p>
+
+<p>This plot explores the relationship between various essential commodities (Gas, Spaghetti, Ice Cream, Bacon, etc.) and the ruling party. Inflation year-over-year is measured by calculating the price increase in a “basket” of goods representative of what Americans consider necessary [2]. Here, we show what each commodity would have cost in 2026 dollars from 1976 onwards. Sadly, there is very little historical data on spaghetti.</p>
+
+<p>I am primarily interested in whether the ruling party is directly responsible for price increases, such as the recent war in Iran having significant impacts on the price of gasoline. The background is highlighted in red or blue, indicating which political party controls the majority of the government. On the right, we see the specific makeup of the government for a selected range of years. This is useful for identifying periods like a lame-duck presidency, where the legislative branch is split and little can be done, versus periods with a strong hold on power, such as our current administration.</p>
+
+<p>From the chart, we can see large swings occur under both parties. As disappointing as it may seem, there is no significant correlation between the ruling party and the price of goods. The decisions made by various administrations often take years, if not decades, to propagate fully through the system. Consequently, when power is swapped back and forth, the overall net economic impact is washed out, making both parties responsible. For instance, although the price of gas spiked during the Iraq and Afghanistan wars from 2000 to 2008, most other vital goods remained relatively stable. This gas spike can be attributed mostly to conflicts in the Middle East impacting the global oil supply chain—which likely would have happened regardless of the invasion—but we see similar spikes in the 1970s and the 2020s. Both of these latter increases occurred under Democratic regimes, but once again, they were primarily caused by supply chain impacts, such as OPEC cutting off oil and the COVID-19 pandemic, respectively. Rather than claiming one party is worse than the other, it seems that a single massive global event—regardless of political affiliation—affects the price of goods far more than simple political maneuvering in D.C.</p>
+
+<h3 id="colormap">Colormap:</h3>
+<p>I chose the <code class="language-plaintext highlighter-rouge">dark2</code> colormap because it is a bit more high-contrast than <code class="language-plaintext highlighter-rouge">tableau10</code>, and I added a drop-shadow to help the lines stand out against the red and blue shading. Obviously, the red and blue are indicative of Republicans and Democrats, so there wasn’t much flexibility there.</p>
+
+<hr />
+
+<div style="margin-bottom: 1rem; display: flex; justify-content: center; align-items: center; width: 100%;">
+    <vegachart schema-url="../assets/json/visualization2.json?v=1778534131" style="width: 100%; max-width: 1000px; display: block; margin: 0 auto;"></vegachart>
+</div>
+
+<div class="button-container">
+    <div>
+        <a class="m-1 btn btn-outline-primary btn-2 " href="https://wiki.free.law/c/courtlistener/help/api/bulk-data/bulk-legal-data">
+  Judicial Data (Free Law Project)
+</a>
+    </div>
+</div>
+
+<h1 id="the-ball-in-the-court">The Ball in the Court:</h1>
+<p>Considering change happens from the top and takes time to propagate down, I wanted to see if more localized events had any impact. There are two primary ways to enforce laws: violence and the courts. I will ignore violence for now, as it is hard to quantify. Instead, we can look at the distribution of Republican-appointed and Democrat-appointed judges for each state by year to get an idea of which side the courts will favor [1]. A more right-leaning judicial system, for instance, would be more likely to strongly enforce Republican policies and strike down Democrat policies. These decisions could have small impacts on companies and individuals, subsequently affecting how things are priced and demanded by the public. If we zoom out and look at the sum, those small decisions have the potential for wide-sweeping downstream effects.</p>
+
+<p>For this, I made a map of the United States where each state is shaded according to the political affiliation of its sitting judges during a selected year. On the right, we see the average price of the commodity basket for that same year. This is an important contextual visualization because it highlights long-term trends rather than short-term representative terms. Judges are often life-long appointments, or at the very least, serve for many decades. Furthermore, these are Federally appointed judges, meaning their cases tend to involve significant national matters rather than simple civil suits.</p>
+
+<p>We can observe the “red wave” in the early 2000s as a result of the 9/11 terror attacks, wherein not only the upper echelons of the government were Republican-affiliated, but so were most federal judges. It is difficult, however, to make broad claims. These are simply correlations, and there is no definitive way to prove causation from this data alone. However, it does highlight interesting anomalies: although ice cream remained stable for the past 20 years, when Obama became president, bacon exploded in price to all-time highs. Why? Perhaps increased regulation under a Democratic regime pushed for more humane farming standards, absorbing some of the cost savings of industrial agriculture. Or maybe there were just fewer pigs. Who knows.</p>
+
+<h3 id="colormap-1">Colormap:</h3>
+<p>The colormap diverges between red and blue to best show the political lean. This is the standard choice for political maps of the USA.</p>
+
+<hr />
+
+<h1 id="war">War</h1>
+
+<div style="margin-bottom: 0.5rem;">
+    <a href="https://www.statista.com/chart/8354/timeline-of-us-budget-allocated-to-the-dod/" title="Infographic: Timeline of Department of Defense Spending | Statista" class="contextual-plot">
+        <img src="https://cdn.statcdn.com/Infographic/images/normal/8354.jpeg" alt="Infographic: Timeline of Department of Defense Spending | Statista" style="width: 100%; height: auto !important; max-width:960px; display: block; margin: 0 auto; -ms-interpolation-mode: bicubic;" />
+    </a>
+</div>
+<p class="image-caption">Chart sourced from <a href="https://www.statista.com/chartoftheday/">Statista</a></p>
+
+<h2 id="liquid-black-gold">Liquid Black Gold:</h2>
+<p>It is increasingly apparent in today’s era that war, particularly in the Middle East, has profound impacts on the economy and gasoline prices. In fact, this realization is what spawned this entire project. Therefore, it is highly pertinent to examine the military status of the U.S. during our time periods of interest. The chart above from Statista [4] shows total defense spending (in 2009 dollars) since 1963. It shows a clear uptick during the early 2000s (Iraq &amp; Afghanistan), providing important context for the other visualizations. During that period of extreme turmoil in the Middle East, we see a clear spike in gas prices from 2000 to 2008, likely a direct result of increased oil prices stemming from the conflicts.</p>
+
+<hr />
+
+<h1 id="energy">Energy</h1>
+
+<div style="margin-bottom: 0.5rem;">
+    <a href="https://www.eia.gov/todayinenergy/detail.php?id=43515" title="U.S. total energy production and consumption (1950-2019) | Energy Information Administration" class="contextual-plot">
+        <img src="../assets/pngs/context2.png" alt="In 2019, U.S. energy production exceeded consumption for the first time in 62 years" style="width: 100%; height: auto !important; max-width:960px; display: block; margin: 0 auto; -ms-interpolation-mode: bicubic;" />
+    </a>
+</div>
+<p class="image-caption">Chart sourced from <a href="https://www.eia.gov/totalenergy/data/monthly/">U.S. Energy Information Administration</a></p>
+
+<h2 id="drill-baby-drill">Drill Baby Drill</h2>
+<p>While war impacts imports, it is also important to examine our production and consumption here at home. The U.S. exports much of its oil, so having an excess amount while still maintaining high gas prices locally may be indicative of an administration prioritizing oil company profits over the wallets of the American people. Conversely, if we do not produce enough, it is best to limit exports to keep domestic prices down. Considering the steady increase in petroleum consumption since the 1950s—with what appears to be a ~6% imbalance between production and consumption as of 2019 seen in the chart above [5]—it appears that the U.S. has no business selling its oil to outside customers when it is not producing enough at home. This unhealthy reliance on oil imports is exactly what leads to large price swings when global supply chains are disrupted.</p>
+
+<hr />
+
+<h3 id="references">References</h3>
+
+<ol>
+  <li>Free Law Project. “Bulk Legal Data.” <em>CourtListener</em>, 2026, <a href="https://wiki.free.law/c/courtlistener/help/api/bulk-data/bulk-legal-data">wiki.free.law</a>. Accessed 11 May 2026.</li>
+  <li>United States, Bureau of Labor Statistics. “Consumer Price Index - All Urban Consumers (Current Series).” <em>LABSTAT Database</em>, 2026, <a href="https://www.bls.gov/data/">bls.gov/data</a>. Accessed 11 May 2026.</li>
+  <li>The United States Project. “Members of the United States Congress, 1789-Present.” <em>GitHub</em>, 2026, <a href="https://github.com/unitedstates/congress-legislators">github.com/unitedstates</a>. Accessed 11 May 2026.</li>
+  <li>Loesche, Dyfed, and Felix Richter. “Infographic: Timeline of Department of Defense Spending.” Statista Daily Data, 2 Mar. 2017, <a href="https://www.statista.com/chart/8354/timeline-of-us-budget-allocated-to-the-dod/">statista.com</a>.</li>
+  <li><em>U.S. Energy Production Exceeded Consumption by Record Amount in 2023 - U.S. Energy Information Administration (EIA)</em>, <a href="https://www.eia.gov/todayinenergy/detail.php?id=62407">eia.gov</a>. Accessed 11 May 2026.</li>
+</ol>
+
+<hr />
+
+<p><br /></p>
+
+<h2 style="text-align: center;">Raw Data &amp; Analysis</h2>
+
+<div style="text-align: center; margin-bottom: 1rem;">
+    <a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/final_3.1.ipynb">
+  View Jupyter Notebook
 </a>
 </div>
 
-<div class="right">
-<a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/final_3.1.ipynb">
-  The Analysis
+<h4 style="text-align: center; color: #555;">Raw Dataset Files</h4>
+<div class="button-container" style="gap: 10px; max-width: 800px; margin: 0 auto;">
+    <a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/data/ap.series.txt">
+  ap.series.txt
+</a>
+    <a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/data/ap.data.2.Gasoline.txt">
+  ap.data.2.Gasoline.txt
+</a>
+    <a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/data/ap.data.3.Food.txt">
+  ap.data.3.Food.txt
+</a>
+    <a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/data/cu.series.txt">
+  cu.series.txt
+</a>
+    <a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/data/cu.data.1.AllItems.txt">
+  cu.data.1.AllItems.txt
+</a>
+    <a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/data/legislators-current.json">
+  legislators-current.json
+</a>
+    <a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/data/legislators-historical.json">
+  legislators-historical.json
+</a>
+    <a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/data/executive.json">
+  executive.json
+</a>
+    <a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/nolan-cummins/nolan-cummins.github.io/blob/main/python_notebooks/data/justicesdata2022.csv">
+  justicesdata2022.csv
 </a>
 </div>
 
